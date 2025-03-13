@@ -1,16 +1,9 @@
-import { useState } from 'react'
-import FlightMap from './FlightMap'
-import './App.css'
+import FlightTracker from './FlightTracker';
+
+import './App.css';
 
 function App() {
-
-  return (
-    <>
-      <div className="card">
-        <FlightMap />
-      </div>
-    </>
-  )
+  return <FlightTracker />;
 }
 
-export default App
+export default App;
