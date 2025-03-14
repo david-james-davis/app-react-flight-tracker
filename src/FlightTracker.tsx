@@ -22,14 +22,8 @@ type Flights = {
   callsign: string;
   latitude: number;
   longitude: number;
-  heading: string;
+  heading: number;
 };
-
-const planeIcon = new L.Icon({
-  iconUrl: planeSvg,
-  iconSize: [30, 30],
-  iconAnchor: [15, 15],
-});
 
 function FlightTracker() {
   const [flights, setFlights] = useState<Flights[]>([]);
@@ -56,11 +50,11 @@ function FlightTracker() {
           newFlightPaths[callsign].push([latitude, longitude]);
 
           // Keep only last 5 locations
-          if (newFlightPaths[callsign].length > 5) {
+          if (newFlightPaths[callsign].length > 10) {
             newFlightPaths[callsign].shift();
           }
 
-          return { callsign, latitude, longitude, heading };
+          return { callsign, latitude, longitude, heading } as Flights;
         });
 
       setFlights(processedFlights);
@@ -68,7 +62,7 @@ function FlightTracker() {
     };
 
     eventSource.onopen = () => {
-      console.log('Connection to server opened.');
+      console.info('Connection to server opened.');
     };
 
     eventSource.onerror = error => {
@@ -79,14 +73,19 @@ function FlightTracker() {
     return () => {
       eventSource.close();
     };
-  }, []);
+  }, [flightPaths]);
 
   return (
     <Card sx={{ width: '60vw', height: '600px' }}>
       <MapContainer center={[38.89511, -77.03637]} zoom={10} style={{ height: '600px', width: '100%' }}>
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         {flights.map(flight => {
-          return <Marker key={flight.callsign} position={[flight.latitude, flight.longitude]} icon={planeIcon} />;
+            const icon = L.divIcon({
+                html: `<img src="${planeSvg}" style="transform: rotate(${-(flight.heading)}deg); width: 15px; height: 15px;" />`,
+                iconSize: [15, 15],
+                className: 'custom-icon',
+              });
+          return <Marker key={flight.callsign} position={[flight.latitude, flight.longitude]} icon={icon} />;
         })}
         {Object.values(flightPaths).map((path, index) => (
           <Polyline key={index} positions={path as [number, number][]} color='blue' />
