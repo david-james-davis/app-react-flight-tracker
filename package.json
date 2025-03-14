@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@david-james-davis/react-component-library": "^1.0.5",
     "leaflet": "^1.9.4",
     "react": "^19.0.0",
@@ -22,6 +23,7 @@
     "@types/leaflet": "^1.9.16",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",

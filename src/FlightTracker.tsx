@@ -80,11 +80,11 @@ function FlightTracker() {
       <MapContainer center={[38.89511, -77.03637]} zoom={10} style={{ height: '600px', width: '100%' }}>
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         {flights.map(flight => {
-            const icon = L.divIcon({
-                html: `<img src="${planeSvg}" style="transform: rotate(${-(flight.heading)}deg); width: 15px; height: 15px;" />`,
-                iconSize: [15, 15],
-                className: 'custom-icon',
-              });
+          const icon = L.divIcon({
+            html: `<img src="${planeSvg}" style="transform: rotate(${-flight.heading}deg); width: 15px; height: 15px;" />`,
+            iconSize: [15, 15],
+            className: 'custom-icon',
+          });
           return <Marker key={flight.callsign} position={[flight.latitude, flight.longitude]} icon={icon} />;
         })}
         {Object.values(flightPaths).map((path, index) => (
