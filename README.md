@@ -4,6 +4,7 @@ React visual display of aircraft in flight in a 50 nautical miile radius of Wach
 
 * server-sent data captured EventSource API
 * Leaflet.js map api
+* Flight data from ADSBexchange.com
 * A private NPM package I made of a React component library (requires access)
 
 Visual:
